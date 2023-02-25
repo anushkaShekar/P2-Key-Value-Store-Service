@@ -1,12 +1,12 @@
 syntax = "proto3";
 
 service NumStore {
-        rpc SetNum(SetNumReq) returns (SetNumResp);
+        rpc SetNum(SetNumRequest) returns (SetNumResp);
 
-        rpc Fact(FactReq) returns (FactResp);
+        rpc Fact(FactRequest) returns (FactResp);
 }
 
-message SetNumReq {
+message SetNumRequest {
         string key = 1;
         int32 value = 2;
 }
@@ -15,7 +15,7 @@ message SetNumResp {
         int32 total = 1;
 }
 
-message FactReq {
+message FactRequest {
         string key = 3;
 }
 

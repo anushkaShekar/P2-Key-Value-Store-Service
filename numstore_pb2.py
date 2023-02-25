@@ -14,20 +14,20 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0enumstore.proto\"\'\n\tSetNumReq\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x05\"\x1b\n\nSetNumResp\x12\r\n\x05total\x18\x01 \x01(\x05\"\x16\n\x07\x46\x61\x63tReq\x12\x0b\n\x03key\x18\x03 \x01(\t\"5\n\x08\x46\x61\x63tResp\x12\r\n\x05value\x18\x03 \x01(\x05\x12\x0b\n\x03hit\x18\x04 \x01(\x08\x12\r\n\x05\x65rror\x18\x05 \x01(\t2J\n\x08NumStore\x12!\n\x06SetNum\x12\n.SetNumReq\x1a\x0b.SetNumResp\x12\x1b\n\x04\x46\x61\x63t\x12\x08.FactReq\x1a\t.FactRespb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0enumstore.proto\"+\n\rSetNumRequest\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x05\"\x1b\n\nSetNumResp\x12\r\n\x05total\x18\x01 \x01(\x05\"\x1a\n\x0b\x46\x61\x63tRequest\x12\x0b\n\x03key\x18\x03 \x01(\t\"5\n\x08\x46\x61\x63tResp\x12\r\n\x05value\x18\x03 \x01(\x05\x12\x0b\n\x03hit\x18\x04 \x01(\x08\x12\r\n\x05\x65rror\x18\x05 \x01(\t2R\n\x08NumStore\x12%\n\x06SetNum\x12\x0e.SetNumRequest\x1a\x0b.SetNumResp\x12\x1f\n\x04\x46\x61\x63t\x12\x0c.FactRequest\x1a\t.FactRespb\x06proto3')
 
 
 
-_SETNUMREQ = DESCRIPTOR.message_types_by_name['SetNumReq']
+_SETNUMREQUEST = DESCRIPTOR.message_types_by_name['SetNumRequest']
 _SETNUMRESP = DESCRIPTOR.message_types_by_name['SetNumResp']
-_FACTREQ = DESCRIPTOR.message_types_by_name['FactReq']
+_FACTREQUEST = DESCRIPTOR.message_types_by_name['FactRequest']
 _FACTRESP = DESCRIPTOR.message_types_by_name['FactResp']
-SetNumReq = _reflection.GeneratedProtocolMessageType('SetNumReq', (_message.Message,), {
-  'DESCRIPTOR' : _SETNUMREQ,
+SetNumRequest = _reflection.GeneratedProtocolMessageType('SetNumRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SETNUMREQUEST,
   '__module__' : 'numstore_pb2'
-  # @@protoc_insertion_point(class_scope:SetNumReq)
+  # @@protoc_insertion_point(class_scope:SetNumRequest)
   })
-_sym_db.RegisterMessage(SetNumReq)
+_sym_db.RegisterMessage(SetNumRequest)
 
 SetNumResp = _reflection.GeneratedProtocolMessageType('SetNumResp', (_message.Message,), {
   'DESCRIPTOR' : _SETNUMRESP,
@@ -36,12 +36,12 @@ SetNumResp = _reflection.GeneratedProtocolMessageType('SetNumResp', (_message.Me
   })
 _sym_db.RegisterMessage(SetNumResp)
 
-FactReq = _reflection.GeneratedProtocolMessageType('FactReq', (_message.Message,), {
-  'DESCRIPTOR' : _FACTREQ,
+FactRequest = _reflection.GeneratedProtocolMessageType('FactRequest', (_message.Message,), {
+  'DESCRIPTOR' : _FACTREQUEST,
   '__module__' : 'numstore_pb2'
-  # @@protoc_insertion_point(class_scope:FactReq)
+  # @@protoc_insertion_point(class_scope:FactRequest)
   })
-_sym_db.RegisterMessage(FactReq)
+_sym_db.RegisterMessage(FactRequest)
 
 FactResp = _reflection.GeneratedProtocolMessageType('FactResp', (_message.Message,), {
   'DESCRIPTOR' : _FACTRESP,
@@ -54,14 +54,14 @@ _NUMSTORE = DESCRIPTOR.services_by_name['NumStore']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _SETNUMREQ._serialized_start=18
-  _SETNUMREQ._serialized_end=57
-  _SETNUMRESP._serialized_start=59
-  _SETNUMRESP._serialized_end=86
-  _FACTREQ._serialized_start=88
-  _FACTREQ._serialized_end=110
-  _FACTRESP._serialized_start=112
-  _FACTRESP._serialized_end=165
-  _NUMSTORE._serialized_start=167
-  _NUMSTORE._serialized_end=241
+  _SETNUMREQUEST._serialized_start=18
+  _SETNUMREQUEST._serialized_end=61
+  _SETNUMRESP._serialized_start=63
+  _SETNUMRESP._serialized_end=90
+  _FACTREQUEST._serialized_start=92
+  _FACTREQUEST._serialized_end=118
+  _FACTRESP._serialized_start=120
+  _FACTRESP._serialized_end=173
+  _NUMSTORE._serialized_start=175
+  _NUMSTORE._serialized_end=257
 # @@protoc_insertion_point(module_scope)
