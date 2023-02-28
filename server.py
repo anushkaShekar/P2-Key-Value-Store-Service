@@ -47,11 +47,9 @@ class NumStore(numstore_pb2_grpc.NumStoreServicer):
                 if len(cache) > cache_size:
                     cache.pop(0)
         else:
-            print("key does not exist")
-        return numstore_pb2.FactResp(value=cache[val], hit=hit)
+            return numstore_pb2.FactResp(value=cache[val], hit=hit)
 
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=4), options=[("grpc.so_reuseport", 0)])
-
 numstore_pb2_grpc.add_NumStoreServicer_to_server(NumStore(), server)
 
 server.add_insecure_port('localhost:5440')
