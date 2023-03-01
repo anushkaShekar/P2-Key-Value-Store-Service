@@ -1,6 +1,7 @@
 import sys
 import grpc
-import threading, time, numpy
+import threading, time
+import numpy as np
 import random, string
 import numstore_pb2_grpc
 import numstore_pb2
@@ -9,6 +10,8 @@ port = "5440"
 addr = f"127.0.0.1:{port}"
 channel = grpc.insecure_channel(addr)
 stub = numstore_pb2_grpc.NumStoreStub(channel)
+
+latencies = []
 hits = []
 hit_rate = 0
 
@@ -19,11 +22,14 @@ for i in range(100):
 
 def task():
     for i in range(8):
-        t = threading.Thread(thread_function())
+        t = threading.Thread(target=thread_function)
         t.start()
         t.join()
+
     hit_rate = sum(hits) / len(hits)
     print("Cache hit rate: ", hit_rate)
+    print("p50 response time: ", np.quantile(latencies, 0.5))
+    print("p90 response time: ", np.quantile(latencies, 0.99))
 
 def thread_function():
     global key_list
@@ -33,10 +39,18 @@ def thread_function():
 
     if randomOperation == 0:
         for i in range(100):
+            start = time.time()
             stub.SetNum(numstore_pb2.SetNumRequest(key=randomKey, value=randomValue))
+            end = time.time()
+            global latencies
+            latencies.append(end - start)
     else:
         for i in range(100):
+            start = time.time()
             resp = stub.Fact(numstore_pb2.FactRequest(key=randomKey))
+            end = time.time()
+            latencies.append(end-start)
+
             if resp.hit == True:
                 global hits
                 hits.append(1)
