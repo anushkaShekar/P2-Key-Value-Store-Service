@@ -1,6 +1,6 @@
 import sys
 import grpc
-import threading
+import threading, time, numpy
 import random, string
 import numstore_pb2_grpc
 import numstore_pb2
@@ -9,40 +9,41 @@ port = "5440"
 addr = f"127.0.0.1:{port}"
 channel = grpc.insecure_channel(addr)
 stub = numstore_pb2_grpc.NumStoreStub(channel)
+hits = []
+hit_rate = 0
+
+key_list = []
+for i in range(100):
+    val = random.choice(string.ascii_uppercase)
+    key_list.append(val)
 
 def task():
-    key_list = []
-    for i in range(100):
-        val = random.choice(string.ascii_uppercase)
-        key_list.append(val)
-
-    #for i in range(8):
-        #create_thread()
-        #for i in range(100):
-            #t.start()
-            #t.join()
-
-    return key_list
-
-def create_thread():
-    t = threading.Thread(target=thread_function)
+    for i in range(8):
+        t = threading.Thread(thread_function())
+        t.start()
+        t.join()
+    hit_rate = sum(hits) / len(hits)
+    print("Cache hit rate: ", hit_rate)
 
 def thread_function():
-    keys = task()
-    randomKey = random.choice(keys)
+    global key_list
+    randomKey = random.choice(key_list)
     randomValue = random.randint(1, 15)
-    function_list = [stub.SetNum(numstore_pb2.SetNumRequest()), stub.Fact(numstore_pb2.FactRequest())]
-    randomFunction = random.choice(function_list)
+    randomOperation = random.randint(0, 1)
 
-    if randomFunction == stub.SetNum(numstore_pb2.SetNumRequest()):
-        resp = randomFunction(key=randomKey, value=randomValue)
-        print(resp.total)
+    if randomOperation == 0:
+        for i in range(100):
+            stub.SetNum(numstore_pb2.SetNumRequest(key=randomKey, value=randomValue))
     else:
-        resp = randomFunction(key=randomKey)
-        print(resp.value)
+        for i in range(100):
+            resp = stub.Fact(numstore_pb2.FactRequest(key=randomKey))
+            if resp.hit == True:
+                global hits
+                hits.append(1)
+            else:
+                hits.append(0)
 
 task()
-thread_function()
 
 # TEST SetNum
 #resp = stub.SetNum(numstore_pb2.SetNumRequest(key="A", value=1))
