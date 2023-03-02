@@ -7,7 +7,7 @@ import numstore_pb2_grpc
 import numstore_pb2
 
 port = "5440"
-addr = f"127.0.0.1:{port}"
+addr = f"127.0.0.1:{54321}"
 channel = grpc.insecure_channel(addr)
 stub = numstore_pb2_grpc.NumStoreStub(channel)
 
