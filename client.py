@@ -17,8 +17,8 @@ hit_rate = 0
 
 key_list = []
 for i in range(100):
-    val = random.choice(string.ascii_uppercase)
-    key_list.append(val)
+    randomLetter = random.choice(string.ascii_uppercase)
+    key_list.append(randomLetter)
 
 def task():
     for i in range(8):
@@ -26,7 +26,9 @@ def task():
         t.start()
         t.join()
 
-    hit_rate = sum(hits) / len(hits)
+    if len(hits) != 0:
+        global hit_rate
+        hit_rate = sum(hits) / len(hits)
     print("Cache hit rate: ", hit_rate)
     print("p50 response time: ", np.quantile(latencies, 0.5))
     print("p90 response time: ", np.quantile(latencies, 0.99))

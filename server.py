@@ -37,7 +37,7 @@ class NumStore(numstore_pb2_grpc.NumStoreServicer):
                 hit = False
                 cache[val] = math.factorial(val)
                 if len(cache) > cache_size:
-                    cache.pop(0)
+                    cache.pop(next(iter(cache)))
             return numstore_pb2.FactResp(value=cache[val], hit=hit)
         else:
             return numstore_pb2.FactResp(error="Key does not exist.")
