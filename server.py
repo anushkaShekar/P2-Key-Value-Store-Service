@@ -49,7 +49,6 @@ class NumStore(numstore_pb2_grpc.NumStoreServicer):
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=4), options=[("grpc.so_reuseport", 0)])
 numstore_pb2_grpc.add_NumStoreServicer_to_server(NumStore(), server)
 
-#server.add_insecure_port('localhost:5440')
 server.add_insecure_port('[::]:5440')
 server.start()
 server.wait_for_termination()
