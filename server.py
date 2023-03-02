@@ -34,10 +34,14 @@ class NumStore(numstore_pb2_grpc.NumStoreServicer):
                 cache.pop(val)
                 cache[val] = fact
             else:
+                lock.acquire()
                 hit = False
+                lock.release()
                 cache[val] = math.factorial(val)
+                lock.acquire()
                 if len(cache) > cache_size:
                     cache.pop(next(iter(cache)))
+                lock.release()
             return numstore_pb2.FactResp(value=cache[val], hit=hit)
         else:
             return numstore_pb2.FactResp(error="Key does not exist.")
